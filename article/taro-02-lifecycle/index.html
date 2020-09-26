@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="一个敢于面对无尽的BUG,码农,不断成长的小小码农">
+    <meta name="keyword" content="王小匠,ARTROY,ARTROY王小匠,前端工程师,不断成长的码农,www.artroy.com.cn,">
+    <!-- 百度站点验证域名的拥有者 -->
+    <meta name="baidu-site-verification" content="J0CAGEsuLG">
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <title> 
+                【Taro】生命周期&amp;state - 王小匠 | Blog
+            </title>
+
+    <link rel="canonical" href="https://wanghaijuan.github.io/article/taro-02-lifecycle/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+
+    <link rel="stylesheet" href="/css/collection.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <link rel="stylesheet" href="/css/images.css">
+
+ 
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	  <!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_bg.jpeg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                        </div>
+                        <h1>【Taro】生命周期&amp;state</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by ARTROY on
+                            2019-05-20
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">ARTROY</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">首页</a>
+                    </li>
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">关于</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/collection/">作品</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1><span id="taro-生命周期与-state">Taro 生命周期与 state</span></h1>
+<br>
+<blockquote>
+<p>Taro 的生命周期&amp;state 与 React 类似<br>
+状态更新一定是异步的，React 中的状态更新不一定是异步的<br>
+同 React 一致，更新必须调用 setState 方法，直接赋值是不会更新的</p>
+</blockquote>
+<br>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Taro, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'@tarojs/taro'</span></span><br><span class="line"><span class="keyword">import</span> &#123; View, Text &#125; <span class="keyword">from</span> <span class="string">'@tarojs/components'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./index.scss'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Index</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  config = &#123;</span><br><span class="line">    navigationBarTitleText: <span class="string">'首页'</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 当前Index组件的对象 管理数据 </span></span><br><span class="line">  state = &#123;</span><br><span class="line">    name: <span class="string">'Taro'</span>,</span><br><span class="line">    text: <span class="string">'Taro'</span>,</span><br><span class="line">  &#125;</span><br><span class="line">  demo = &#123;</span><br><span class="line">    name: <span class="string">'demo'</span></span><br><span class="line">  &#125;</span><br><span class="line">  fetchName = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'123456'</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 执行componentWillMount后执行render函数</span></span><br><span class="line">  componentWillMount () &#123; </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"第一次渲染之前执行，只执行一次"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  componentDidMount () &#123; </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"第一次渲染之后执行，只执行一次"</span>);</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 修改值</span></span><br><span class="line"><span class="comment">     * 错误： this.state.text = '哈哈哈'</span></span><br><span class="line"><span class="comment">     * 正确： this.setState(&#123;text: '哈哈哈'&#125;)</span></span><br><span class="line"><span class="comment">     */</span> </span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;<span class="attr">text</span>: <span class="string">'哈哈哈'</span>&#125;, () =&gt; &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.text);           <span class="comment">//2、输入 哈哈哈</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.text);           <span class="comment">//1、输入 Taro</span></span><br><span class="line">    <span class="comment">// 证明状态更新是异步</span></span><br><span class="line"> </span><br><span class="line">  &#125;</span><br><span class="line">  componentWillUnmount () &#123; </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"卸载时执行，只执行一次"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  componentWillUpdate() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"state数据更新之前"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  componentDidUpdate() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"state数据更新之后"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 会再父组传递给子组件的参数发生改变时触发</span></span><br><span class="line">  componentWillReceiveProps(nextProps) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(nextProps);</span><br><span class="line">  &#125;</span><br><span class="line">  shouldComponentUpdate(nextProps, nextState) &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  shouldComponentUpdate</span></span><br><span class="line"><span class="comment">     *  检查此次setState是否要进行render更新，是返回true，否返回false</span></span><br><span class="line"><span class="comment">     *  一般用来多次更改state，提升render的性能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"是否要更新"</span>);</span><br><span class="line">    <span class="keyword">if</span>(nextState.text === <span class="string">'哈哈哈'</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  componentDidShow () &#123; </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * componentDidShow</span></span><br><span class="line"><span class="comment">     * react 不存在  Taro存在</span></span><br><span class="line"><span class="comment">     * 页面显示时触发</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"页面显示时触发"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  componentDidHide () &#123; </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * componentDidShow</span></span><br><span class="line"><span class="comment">     * react 不存在  Taro存在</span></span><br><span class="line"><span class="comment">     * 页面隐藏时触发</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"页面隐藏时触发"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// render 继承Component类</span></span><br><span class="line">  render () &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;View className=<span class="string">'index'</span>&gt;</span><br><span class="line">        &lt;Text&gt;页面&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">        &#123;/</span>* 引用state对象 *<span class="regexp">/&#125;</span></span><br><span class="line"><span class="regexp">        &lt;Text&gt;&#123;this.demo.name&#125;&lt;/</span>Text&gt;</span><br><span class="line">        &#123;<span class="comment">/* 此处的text在componentDidMount出被修改 */</span>&#125;</span><br><span class="line">        &lt;Text&gt;&#123;<span class="keyword">this</span>.state.text&#125;&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Text&gt;&#123;this.state.name&#125;&lt;/</span>Text&gt;</span><br><span class="line">        &lt;Text&gt;&#123;<span class="keyword">this</span>.fetchName()&#125;&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>View&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 执行顺序</span></span><br><span class="line"><span class="comment"> * 第一次渲染之前执行，只执行一次</span></span><br><span class="line"><span class="comment"> * 第一次渲染之后执行，只执行一次</span></span><br><span class="line"><span class="comment"> * Taro</span></span><br><span class="line"><span class="comment"> * 页面显示时触发</span></span><br><span class="line"><span class="comment"> * 是否要更新</span></span><br><span class="line"><span class="comment"> * state数据更新之前</span></span><br><span class="line"><span class="comment"> * state数据更新之后</span></span><br><span class="line"><span class="comment"> * 哈哈哈</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/taro-01-knowledge/" data-toggle="tooltip" data-placement="top" title="【Taro】初识Taro">Previous Post &rarr;</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/taro-03-TaroProps/" data-toggle="tooltip" data-placement="top" title="【Taro】TaroProps">&larr; Next Post</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                    <div class="reward">
+                        <div class="reward-button">赏 <span class="reward-code"> 
+                            <span class="alipay-code"> <img class="alipay-img" src="/img/pay/alipay_url.jpeg"><b>支付宝打赏</b></span> 
+                            <span class="wechat-code"> <img class="wechat-img" src="/img/pay/wechatpay_url.jpeg"><b>微信打赏</b> </span>
+                            </span></div>
+                        <p class="reward-notice">欣赏此文，打赏一下</p>
+                    </div>
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Taro 生命周期与 state</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <!-- FEATURED TAGS -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <!-- <h5>FRIENDS</h5> -->
+                <h5>参与社区</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://segmentfault.com/u/wanghaijuan" target="_blank">Segmentfault 王小匠</a></li>
+                    
+                        <li><a href="https://juejin.im/user/58eca126a0bb9f006a461f55" target="_blank">掘金 王小匠</a></li>
+                    
+                        <li><a href="https://blog.csdn.net/qq_33454758" target="_blank">CSDN Blog 王小匠</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<script>
+//  点击查看图片 
+function createImgEventFullScreen() {
+  var imgs = $(".container").find("img");
+  for(var i = 0;i < imgs.length;i++) {
+    imgs[i].onclick= function(e) {
+      createCover(e.srcElement.currentSrc)
+    }
+  }
+  function createCover (src) {
+    var cover = $("<div id='full-screen-cover' class='full-cover-img'><img class='cover-img' src='" + src + "'/></div>");
+    $("#full-screen-cover").remove();
+    $("body").append(cover);
+    $("body").addClass("body-scroll");
+    $("#full-screen-cover").click(function(){
+      $("#full-screen-cover").remove();
+      $("body").removeClass("body-scroll");
+    })
+  }
+}
+setTimeout(function(){
+  createImgEventFullScreen();
+},1000)
+</script>
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/wang_haijuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com//u/5604158760">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wanghaijuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                <!-- 
+                  <li>
+                      <a target="_blank" href="https://segmentfault.com/u/wanghaijuan">
+                          <span class="fa-stack fa-lg">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                          </span>
+                      </a>
+                  </li>
+                
+                 -->
+                </ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; ARTROY 2020 
+                    <br>
+                    Theme by <a href="https://wanghaijuan.github.io/">Artroy</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://wanghaijuan.github.io/">王小匠</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=wanghaijuan&repo=wanghaijuan.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+<!-- mermaid -->
+
+    <script src='https://cdn.bootcss.com/mermaid/7.1.2/mermaid.min.js'></script>
+    <script>
+      if (window.mermaid) {
+        mermaid.initialize({theme: 'forest'});
+      }
+    </script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://wanghaijuan.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+<!-- 
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-148140427-1';
+    var _gaDomain = 'Artroy';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+ -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script>
+  // dynamic User by Hux
+  var _baId = 'UA-148140427-1';
+  // Originial
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://www.googletagmanager.com/gtag/js?id=" + _baId;
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', _baId);
+  })();
+</script>
+ -->
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '597740317a777ac92e58b0621510aa97';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+     <!-- 客服 -->
+    <script src="//code.tidio.co/rsrokwlqqcx6zz4uyzd6tel6lxu3pok0.js"></script>
+    <!-- Image to hack wechat -->
+    <img src="https://wanghaijuan.github.io/img/icon_wechat.png" width="0" height="0" />
+    <!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

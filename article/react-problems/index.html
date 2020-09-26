@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="一个敢于面对无尽的BUG,码农,不断成长的小小码农">
+    <meta name="keyword" content="王小匠,ARTROY,ARTROY王小匠,前端工程师,不断成长的码农,www.artroy.com.cn,">
+    <!-- 百度站点验证域名的拥有者 -->
+    <meta name="baidu-site-verification" content="J0CAGEsuLG">
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <title> 
+                【随笔】写写 React 中的一些小小知识点 - 王小匠 | Blog
+            </title>
+
+    <link rel="canonical" href="https://wanghaijuan.github.io/article/react-problems/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+
+    <link rel="stylesheet" href="/css/collection.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <link rel="stylesheet" href="/css/images.css">
+
+ 
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	  <!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_02.jpeg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#面试" title="面试">面试</a>
+                            
+                              <a class="tag" href="/tags/#随笔" title="随笔">随笔</a>
+                            
+                              <a class="tag" href="/tags/#React" title="React">React</a>
+                            
+                        </div>
+                        <h1>【随笔】写写 React 中的一些小小知识点</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by ARTROY on
+                            2019-11-12
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">ARTROY</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">首页</a>
+                    </li>
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">关于</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/collection/">作品</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3><span id="一-thissetstate相关信息">一、this.setState()相关信息？</span></h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">   <span class="keyword">super</span>(props);</span><br><span class="line">   <span class="keyword">this</span>.state = &#123;</span><br><span class="line">     num: <span class="number">100</span>,</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> componentDidMount() &#123;</span><br><span class="line">   <span class="comment">/* 情况一 */</span></span><br><span class="line">   <span class="keyword">this</span>.setState(&#123;<span class="attr">num</span>: <span class="keyword">this</span>.state.num+<span class="number">1</span>&#125;);</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.num);</span><br><span class="line">   <span class="comment">// 数据会发生更改，但是console.log（）出来的结果是100，因为是setState()是异步操作</span></span><br><span class="line">   <span class="keyword">this</span>.setState(&#123;<span class="attr">num</span>: <span class="keyword">this</span>.state.num+<span class="number">1</span>&#125;,() =&gt; &#123;</span><br><span class="line">     <span class="comment">// 第二参数是回调函数，酱紫修改就能获取到更改后的值</span></span><br><span class="line">     <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.num);  </span><br><span class="line">   &#125;);</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* 情况二 */</span></span><br><span class="line">   <span class="keyword">this</span>.setState(&#123;<span class="attr">num</span>: <span class="keyword">this</span>.state.num+<span class="number">3</span>&#125;);</span><br><span class="line">   <span class="keyword">this</span>.setState(&#123;<span class="attr">num</span>: <span class="keyword">this</span>.state.num+<span class="number">2</span>&#125;);</span><br><span class="line">   <span class="keyword">this</span>.setState(&#123;<span class="attr">num</span>: <span class="keyword">this</span>.state.num+<span class="number">1</span>&#125;);</span><br><span class="line">   <span class="comment">// setState 是通过队列机制实现 state 更新的，</span></span><br><span class="line">   <span class="comment">// 当执行 setState 时，会将需要更新的state合并放入状态队列，</span></span><br><span class="line">   <span class="comment">// 不会立刻更新，会批量更新（一个生命周期内所有的 setState 方法合并后操作）</span></span><br><span class="line">   <span class="comment">// 最后num值是101</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// 如果硬是要setState分步执行又要生效</span></span><br><span class="line">   <span class="comment">// 那可以按函数形式去执行，最后结果是106（如果新值依赖旧值，那么也建议用函数的方式）</span></span><br><span class="line">   <span class="comment">// 批量执行：</span></span><br><span class="line">   <span class="keyword">this</span>.setState(<span class="function"><span class="params">prevState</span> =&gt;</span> &#123;</span><br><span class="line">     <span class="keyword">return</span> &#123;</span><br><span class="line">       num: prevState.num + <span class="number">3</span>,</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">   <span class="keyword">this</span>.setState(<span class="function"><span class="params">prevState</span> =&gt;</span> &#123;</span><br><span class="line">     <span class="keyword">return</span> &#123;</span><br><span class="line">       num: prevState.num + <span class="number">2</span>,</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">   <span class="keyword">this</span>.setState(<span class="function"><span class="params">prevState</span> =&gt;</span> (&#123;</span><br><span class="line">     num: prevState.num + <span class="number">1</span></span><br><span class="line">   &#125;));</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* 情况三: 扩展题 */</span></span><br><span class="line">   <span class="keyword">this</span>.setState(&#123;<span class="attr">num</span>: <span class="keyword">this</span>.state.num + <span class="number">1</span>&#125;); </span><br><span class="line">   <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.num);  </span><br><span class="line">   <span class="keyword">this</span>.setState(&#123;<span class="attr">num</span>: <span class="keyword">this</span>.state.num + <span class="number">1</span>&#125;); </span><br><span class="line">   <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.num); </span><br><span class="line">   setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">     <span class="keyword">this</span>.setState(&#123;<span class="attr">num</span>: <span class="keyword">this</span>.state.num + <span class="number">1</span>&#125;); </span><br><span class="line">     <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.num);</span><br><span class="line">     <span class="keyword">this</span>.setState(&#123;<span class="attr">num</span>: <span class="keyword">this</span>.state.num + <span class="number">1</span>&#125;);</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="keyword">this</span>.state.num); </span><br><span class="line">   &#125;, <span class="number">0</span>);</span><br><span class="line">   <span class="comment">// 输入：100、100、102、103 </span></span><br><span class="line">   <span class="comment">// 解析：事务(transaction)</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="二-手动进行事件绑定分别是什么有啥区别">二、手动进行事件绑定分别是什么，有啥区别？</span></h3>
+<p>（1）<code>bind</code>方法： <code>&lt;button onClick={this.handleClick.bind(this, 'test')}&gt;Test&lt;/button&gt;</code>;<br>
+（2）构造器内声明： <code>this.handleClick = this.handleClick.bind(this)</code> and<br>
+<code>&lt;button onClick={this.handleClick}&gt;Test&lt;/button&gt;</code><br>
+（3）箭头函数：<code>&lt;button onClick={() =&gt; this.handleClick()}&gt;Test&lt;/button&gt;</code>，自动绑定了定义此函数作用域的 <code>this</code>。<br>
+思考：<code>bind(this)</code>可能会导致重复绑定，尽量使用箭头函数绑定（性能优化的时候也可以提一提）。</p>
+<h3><span id="三-hook168">三、Hook（16.8）</span></h3>
+<p>目标：不编写 class 的情况下使用 state 以及其他的 React 特性。<br>
+特点：<br>
+（1）无需修改组件结构的情况下复用状态逻辑。<br>
+（2）可将组件相互关联的部分拆分成更小的函数，复杂组件将变得容易理解。<br>
+（3）更简洁、更容易理解的代码。</p>
+<p>1、<strong>状态钩子 State Hook <code>useState</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [name] = useState(<span class="string">'name‘);</span></span><br><span class="line"><span class="string">const [count, setCount] = useState(0);</span></span><br><span class="line"><span class="string">const [arrs, setArrs] = useState(['</span>text1’, ‘text2’]); </span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fun1 = <span class="function"><span class="params">()</span> =&gt;</span> setCount(count + <span class="number">1</span>);</span><br><span class="line"><span class="comment">// setArrs(f) 更改了arrs的值</span></span><br><span class="line"><span class="keyword">const</span> fun2 = <span class="function"><span class="params">()</span> =&gt;</span> arrs.map(<span class="function"><span class="params">i</span> =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setArrs(f)&#125;&gt;&#123;i&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span>)</span><br><span class="line"><span class="keyword">const</span> fun3 = <span class="function"><span class="params">()</span> =&gt;</span> setArrs([...arrs, name]);</span><br></pre></td></tr></table></figure>
+<p>2、<strong>副作用钩子 Effect Hook <code>useEffect</code></strong><br>
+现在做的是事情对组件的状态和 UI 有影响。 订阅了数据有更改就更新。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 副作用钩子会在每次渲染时执行</span></span><br><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 如果副作用只打算执行一次，传递第二个参数为[]</span></span><br><span class="line"><span class="comment">// 表示；表示没有任何依赖  类似 componentDidMount</span></span><br><span class="line"><span class="comment">// 传入 count 的话表示 count 没有改变就不会更新</span></span><br><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;, [])</span><br><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;, [count])</span><br></pre></td></tr></table></figure>
+<p>3、<strong>自定义钩子 Custom Hook</strong><br>
+自定义<code>hook</code>是一个函数，名称用“<code>use</code>”开头，函数内部可以调用其他钩子。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// useEffect 不能在组件里面设置</span></span><br><span class="line"><span class="keyword">import</span> React, &#123;useState, useEffect&#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">useValue</span>(<span class="params">payload</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> [val, setValues] = useState(<span class="string">'value'</span>);</span><br><span class="line">    useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        setValues(<span class="string">'payload'</span>);</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> val;</span><br><span class="line">  &#125; </span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> val = useValue(<span class="string">'122'</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &#123;val ? val : <span class="string">''</span>&#125;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>4、 其他钩子<br>
+<code>useContext</code>，<code>useReduce</code>，<code>useCallback</code>，<code>useMemo</code><br>
+注：如果要进行数据优化，不更改就不渲染，可以使用<code>useCallback</code>，<code>useMemo</code>。</p>
+<h3><span id="context">Context</span></h3>
+<p>组件跨层级通信 <code>Context</code> 相关 <code>API</code>：<br>
+<code>React.createContext</code><br>
+<code>Context.Provider</code><br>
+<code>Class.contextType</code><br>
+<code>Context.Consumer</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、创建上下文 Provider里面的值只有Consumer接收到</span></span><br><span class="line"><span class="keyword">import</span> React, &#123;useState, useEffect, useContext&#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myContext = React.createContext();</span><br><span class="line"><span class="keyword">const</span> &#123; Provider, Consumer &#125; = myContext;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用方式一:Consumer</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;&#123;props.info&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;p&gt;&#123;props.age&#125;&lt;/</span>p&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 使用方式二:使用hock</span></span><br><span class="line"><span class="regexp">function Child2(props) &#123;</span></span><br><span class="line"><span class="regexp">  const ctx = useContext(myContext);</span></span><br><span class="line"><span class="regexp">  return (</span></span><br><span class="line"><span class="regexp">    &lt;div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;p&gt;Child2&lt;/</span>p&gt;</span><br><span class="line">      &lt;p&gt;&#123;ctx.age&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用方式三:使用class指定static contextType</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child3</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> contextType = myContext;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;p&gt;Child3&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">        &lt;p&gt;&#123;this.context.age&#125;&lt;/</span>p&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default function TestContext() &#123;</span></span><br><span class="line"><span class="regexp">  return (</span></span><br><span class="line"><span class="regexp">    &lt;div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;Provider value=&#123;&#123;info: 'name', age:123&#125;&#125;&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Consumer&gt;</span></span><br><span class="line"><span class="regexp">          &#123;value =&gt; &lt;Child  &#123;...value&#125;/</span>&gt;&#125;</span><br><span class="line">        &lt;<span class="regexp">/Consumer&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Consumer&gt;</span></span><br><span class="line"><span class="regexp">          &#123;value =&gt; &lt;Child2  &#123;...value&#125;/</span>&gt;&#125;</span><br><span class="line">        &lt;<span class="regexp">/Consumer&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Consumer&gt;</span></span><br><span class="line"><span class="regexp">          &#123;value =&gt; &lt;Child3  &#123;...value&#125;/</span>&gt;&#125;</span><br><span class="line">        &lt;<span class="regexp">/Consumer&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>Provider&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/react-issue/" data-toggle="tooltip" data-placement="top" title="【随笔】关于 React、Redux、Saga 的相关知识点">Previous Post &rarr;</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/high-08/" data-toggle="tooltip" data-placement="top" title="high-08">&larr; Next Post</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                    <div class="reward">
+                        <div class="reward-button">赏 <span class="reward-code"> 
+                            <span class="alipay-code"> <img class="alipay-img" src="/img/pay/alipay_url.jpeg"><b>支付宝打赏</b></span> 
+                            <span class="wechat-code"> <img class="wechat-img" src="/img/pay/wechatpay_url.jpeg"><b>微信打赏</b> </span>
+                            </span></div>
+                        <p class="reward-notice">欣赏此文，打赏一下</p>
+                    </div>
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <!-- FEATURED TAGS -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#面试" title="面试">面试</a>
+                        
+                          <a class="tag" href="/tags/#随笔" title="随笔">随笔</a>
+                        
+                          <a class="tag" href="/tags/#React" title="React">React</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <!-- <h5>FRIENDS</h5> -->
+                <h5>参与社区</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://segmentfault.com/u/wanghaijuan" target="_blank">Segmentfault 王小匠</a></li>
+                    
+                        <li><a href="https://juejin.im/user/58eca126a0bb9f006a461f55" target="_blank">掘金 王小匠</a></li>
+                    
+                        <li><a href="https://blog.csdn.net/qq_33454758" target="_blank">CSDN Blog 王小匠</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<script>
+//  点击查看图片 
+function createImgEventFullScreen() {
+  var imgs = $(".container").find("img");
+  for(var i = 0;i < imgs.length;i++) {
+    imgs[i].onclick= function(e) {
+      createCover(e.srcElement.currentSrc)
+    }
+  }
+  function createCover (src) {
+    var cover = $("<div id='full-screen-cover' class='full-cover-img'><img class='cover-img' src='" + src + "'/></div>");
+    $("#full-screen-cover").remove();
+    $("body").append(cover);
+    $("body").addClass("body-scroll");
+    $("#full-screen-cover").click(function(){
+      $("#full-screen-cover").remove();
+      $("body").removeClass("body-scroll");
+    })
+  }
+}
+setTimeout(function(){
+  createImgEventFullScreen();
+},1000)
+</script>
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/wang_haijuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com//u/5604158760">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wanghaijuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                <!-- 
+                  <li>
+                      <a target="_blank" href="https://segmentfault.com/u/wanghaijuan">
+                          <span class="fa-stack fa-lg">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                          </span>
+                      </a>
+                  </li>
+                
+                 -->
+                </ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; ARTROY 2020 
+                    <br>
+                    Theme by <a href="https://wanghaijuan.github.io/">Artroy</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://wanghaijuan.github.io/">王小匠</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=wanghaijuan&repo=wanghaijuan.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+<!-- mermaid -->
+
+    <script src='https://cdn.bootcss.com/mermaid/7.1.2/mermaid.min.js'></script>
+    <script>
+      if (window.mermaid) {
+        mermaid.initialize({theme: 'forest'});
+      }
+    </script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://wanghaijuan.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+<!-- 
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-148140427-1';
+    var _gaDomain = 'Artroy';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+ -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script>
+  // dynamic User by Hux
+  var _baId = 'UA-148140427-1';
+  // Originial
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://www.googletagmanager.com/gtag/js?id=" + _baId;
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', _baId);
+  })();
+</script>
+ -->
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '597740317a777ac92e58b0621510aa97';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+     <!-- 客服 -->
+    <script src="//code.tidio.co/rsrokwlqqcx6zz4uyzd6tel6lxu3pok0.js"></script>
+    <!-- Image to hack wechat -->
+    <img src="https://wanghaijuan.github.io/img/icon_wechat.png" width="0" height="0" />
+    <!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="一个敢于面对无尽的BUG,码农,不断成长的小小码农">
+    <meta name="keyword" content="王小匠,ARTROY,ARTROY王小匠,前端工程师,不断成长的码农,www.artroy.com.cn,">
+    <!-- 百度站点验证域名的拥有者 -->
+    <meta name="baidu-site-verification" content="J0CAGEsuLG">
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <title> 
+                【JavaScript】面向对象 - 王小匠 | Blog
+            </title>
+
+    <link rel="canonical" href="https://wanghaijuan.github.io/article/js-object/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+
+    <link rel="stylesheet" href="/css/collection.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <link rel="stylesheet" href="/css/images.css">
+
+ 
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	  <!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_01.jpeg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
+                            
+                              <a class="tag" href="/tags/#面试" title="面试">面试</a>
+                            
+                        </div>
+                        <h1>【JavaScript】面向对象</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by ARTROY on
+                            2018-05-22
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">ARTROY</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">首页</a>
+                    </li>
+                    
+                        
+                    
+                        
+                        <li>
+                            <a href="/about/">关于</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/collection/">作品</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/archive/">归档</a>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <a href="/tags/">标签</a>
+                        </li>
+                        
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3><span id="面向过程-面向对象及面向对象编程">面向过程、面向对象及面向对象编程</span></h3>
+<p><strong>面向过程（<code>Procedure Oriented</code>）</strong>：分析解决问题所需要的步骤，然后按照顺序一步一步调用不同的函数。例如：开(冰箱) -&gt; (大象)装进冰箱 -&gt; 关(冰箱)。<br>
+<strong>面向对象（<code>Object Oriented，OO</code>）</strong>：面向对象有三大特点（封装：将功能封装程一个独立、继承：代码重用、减少编码，间接减少维护成本、多态：不同场合作出不同响应），把构成问题事物分解程各个对象，建立对象目的不是为了完成一个步骤，而是为了描述某个事物在整个解决问题问题的步骤中的行为。例如：冰箱.开门() -&gt; 冰箱.装进(大象) -&gt; 冰箱.关门()。<br>
+<strong>面向对象编程（<code>Object Oriented Programming，OOP</code>）</strong>：是一种编程开发思想，它将真实世界各种复杂的关系，抽象成一个个对象，每个对象都是功能的中心，分工明确，可以接收信息，处理数据，发出信息等任务。因此，面向对象编程具有灵活性、代码可复用、高度模块化的特点。容易维护和开发。</p>
+<p>注意：<br>
+（1）面向过程就是亲力亲为，事无巨细，面面俱到，步步紧跟，有条不紊。<br>
+（2）面向对象就是找一个对象，将执行者变成指挥者。<br>
+（3）面向对象不是面向过程的替代，而是面向过程的封装。</p>
+<h3><span id="构造函数的属性">构造函数的属性</span></h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">funcion A(name) &#123;</span><br><span class="line">   <span class="keyword">this</span>.name = name;       <span class="comment">// 实例基本属性 (该属性，强调私有，不共享)</span></span><br><span class="line">   <span class="keyword">this</span>.arr = [<span class="number">1</span>];         <span class="comment">// 实例引用属性 (该属性，强调私用，不共享)</span></span><br><span class="line">   <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 实例引用属性 (该属性，强调复用，需要共享)</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'hello'</span>)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">注意：数组和方法都属于‘实例引用属性’，但是数组强调私有、不共享的。方法需要复用、共享。</span><br><span class="line"></span><br><span class="line">注意：在构造函数中，一般很少有数组形式的引用属性，大部分情况都是：基本属性 + 方法。</span><br></pre></td></tr></table></figure>
+<h3><span id="一-类与实例化">一、类与实例化</span></h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 类的声明：js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">'name'</span></span><br><span class="line">  <span class="keyword">this</span>.run = functionn() &#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">"跑"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 类的声明：es6</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal2</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'name'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 实例化</span></span><br><span class="line"><span class="keyword">var</span> objo = Animal1();       <span class="comment">// 工厂模式 只只要知道所需要生产的东西，无需关心具体过程，</span></span><br><span class="line"><span class="keyword">var</span> obj1 = <span class="keyword">new</span> Animal1();   <span class="comment">// 构造函数模式</span></span><br><span class="line"><span class="keyword">let</span> obj2 = <span class="keyword">new</span> Animal2();</span><br></pre></td></tr></table></figure>
+<h3><span id="二-类与继承">二、类与继承</span></h3>
+<h4><span id="21-借助构造函数实现继承构造函数继承">2.1 借助构造函数实现继承(构造函数继承)</span></h4>
+<p>原理：改变函数运行时的上下文，即this的指向<br>
+优点：实现了继承属性，可以传值<br>
+缺点：实现部分继承，父类的原型对象上的方法无法继承</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">this</span>.name = <span class="string">'Parent1'</span>; </span><br><span class="line">&#125;</span><br><span class="line">Parent1.proptotype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;   <span class="comment">// 父类的原型对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   Parent1.call(<span class="keyword">this</span>)    <span class="comment">// apply 核心</span></span><br><span class="line">   <span class="keyword">this</span>.name = <span class="string">'Parent1'</span>; </span><br><span class="line">   <span class="keyword">this</span>.type = <span class="string">'Child1'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// new Parent1().say()    // Parent1</span></span><br><span class="line"><span class="comment">// new Child1().say()报错，不存在</span></span><br><span class="line"><span class="comment">// say方法如果在构造函数里面可以实现继承，但如果父类的原型对象上还有方法，子类是拿不到方法。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> Child1, <span class="keyword">new</span> Child1().say())</span><br></pre></td></tr></table></figure>
+<h4><span id="22-借助原型链实现继承">2.2 借助原型链实现继承</span></h4>
+<p>原理：改变子类的prototype（即其实例的__proto__）属性指向其父类的实例<br>
+优点：实现了构造函数的继承，也继承了父类原型上的方法<br>
+缺点：原型链中的原型对象是共用的，子类实例的原型对象是同一个引用，当一个实例的属性改变时，其他实例也跟着改变</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">this</span>.name = <span class="string">'Parent2'</span>; </span><br><span class="line">   <span class="keyword">this</span>.arrs = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">this</span>.type = <span class="string">'Child2'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * `prototype`是子类构造函数的一个属性，每个函数都有这个属性，</span></span><br><span class="line"><span class="comment"> *  这个属性是一个对象，这个对象是可以随意赋值的，</span></span><br><span class="line"><span class="comment"> *  父类 Parent2 一个实例 赋值 给 prototype</span></span><br><span class="line"><span class="comment"> *  new Child2().__proto__ === Child2.prototype</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Child2.prototype = <span class="keyword">new</span> Parent2();   <span class="comment">// 核心</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> Child2().__proto__);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a20 = <span class="keyword">new</span> Child2();</span><br><span class="line"><span class="keyword">var</span> a21 = <span class="keyword">new</span> Child2();</span><br><span class="line">a21.arrs.push(<span class="number">3</span>)</span><br><span class="line"><span class="built_in">console</span>.log(a20.arrs, a21.arrs)    <span class="comment">// [1, 2, 3], [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+<h4><span id="23-组合继承构造函数原型链">2.3 组合继承（构造函数+原型链）</span></h4>
+<p>原理：结合构造函数和原型链方法的优点，弥补了此两种方法的不足<br>
+优点：拥有两种方法的优点，弥补以上两个缺点<br>
+缺点：多次执行父类构造函数，浪费内存</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父类构造函数多次执行（两次）</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent3</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">this</span>.name = <span class="string">'Parent3'</span>; </span><br><span class="line">   <span class="keyword">this</span>.arrs = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line">&#125;</span><br><span class="line">Parent1.proptotype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child3</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   Parent3.call(<span class="keyword">this</span>) </span><br><span class="line">   <span class="keyword">this</span>.type = <span class="string">'Child3'</span>;</span><br><span class="line">&#125;</span><br><span class="line">Child3.prototype = <span class="keyword">new</span> Parent3();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a30 = <span class="keyword">new</span> Child3();</span><br><span class="line"><span class="keyword">var</span> a31 = <span class="keyword">new</span> Child3();</span><br><span class="line">p30.say();                        <span class="comment">// Child3</span></span><br><span class="line">a30.arrs.push(<span class="number">3</span>)</span><br><span class="line"><span class="built_in">console</span>.log(a30.arrs, a31.arrs)   <span class="comment">// [1, 2, 3], [1, 2]</span></span><br></pre></td></tr></table></figure>
+<h4><span id="24-组合继承优化1构造函数原型链">2.4 组合继承优化1（构造函数+原型链）</span></h4>
+<p>原理：子类原型直接引用父类的原型<br>
+优点：不需要多次执行父类构造函数<br>
+缺点：不知道实例是由谁创造的（以上方法都存在）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 优化：父类构造函数执行一次</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent4</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">this</span>.name = <span class="string">'Parent4'</span>; </span><br><span class="line">   <span class="keyword">this</span>.arrs = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child4</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   Parent4.call(<span class="keyword">this</span>) </span><br><span class="line">   <span class="keyword">this</span>.type = <span class="string">'Child4'</span>;</span><br><span class="line">&#125;</span><br><span class="line">Child4.prototype = Parent4.prototype;   <span class="comment">// 核心</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a40 = <span class="keyword">new</span> Child4();</span><br><span class="line"><span class="keyword">var</span> a41 = <span class="keyword">new</span> Child4();</span><br><span class="line">a40.arrs.push(<span class="number">3</span>)</span><br><span class="line"><span class="built_in">console</span>.log(a40.arrs, a41.arrs)   <span class="comment">// [1, 2, 3], [1, 2]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 强化：因优化不知道父类原型对象和子类原型对象</span></span><br><span class="line"><span class="built_in">console</span>.log(a40 <span class="keyword">instanceof</span> Child4, a41 <span class="keyword">instanceof</span> Parent4)   <span class="comment">// true true</span></span><br><span class="line"><span class="built_in">console</span>.log(a41.constructor)     <span class="comment">// Parent4</span></span><br></pre></td></tr></table></figure>
+<h4><span id="25-组合继承优化2寄生组合继承">2.5 组合继承优化2（寄生组合继承）</span></h4>
+<p>原理：利用Object.create()函数创建的对象，子类与父类的原型对象进行隔离，覆盖constructor<br>
+优点：不需要多次执行父类构造函数，且知道是由谁创造的实例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent5</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">this</span>.name = <span class="string">'Parent5'</span>; </span><br><span class="line">   <span class="keyword">this</span>.arrs = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child5</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   Parent5.call(<span class="keyword">this</span>)；</span><br><span class="line">   <span class="keyword">this</span>.type = <span class="string">'Child5'</span>;</span><br><span class="line">&#125;</span><br><span class="line">Child5.prototype = <span class="built_in">Object</span>.create(Parent5.prototype)   <span class="comment">// 核心 __.proto__向上找</span></span><br><span class="line">Child5.prototype.constructor = Child5;                <span class="comment">// 核心 设置子类的构造函数 不然还是会根据原型链进行查找</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a5 = <span class="keyword">new</span> Child5();</span><br><span class="line"><span class="built_in">console</span>.log(a5 <span class="keyword">instanceof</span> Child5, a5 <span class="keyword">instanceof</span> Parent5)  <span class="comment">// true true</span></span><br><span class="line"><span class="built_in">console</span>.log(a5.constructor)   <span class="comment">// Child5</span></span><br></pre></td></tr></table></figure>
+<h4><span id="26-es6-class-extends">2.6 ES6 Class extends</span></h4>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">   <span class="keyword">constructor</span>() &#123;</span><br><span class="line">      <span class="keyword">this</span>.color = <span class="string">'#FFF'</span>;</span><br><span class="line">      <span class="keyword">this</span>.arrs = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">   &#125;</span><br><span class="line">   say(word) &#123;   </span><br><span class="line">      <span class="built_in">console</span>.log(word);   </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">   <span class="keyword">constructor</span>() &#123;</span><br><span class="line">   <span class="keyword">super</span>();</span><br><span class="line">      <span class="keyword">this</span>.color = <span class="string">'#FF4'</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> a1 = <span class="keyword">new</span> B(); </span><br><span class="line"><span class="keyword">let</span> a2 = <span class="keyword">new</span> B(); </span><br><span class="line">a1.arrs.push(<span class="number">9</span>);</span><br><span class="line">a1.say(<span class="string">'hello'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(a1.arrs, a2.arrs)   <span class="comment">// [1, 2, 3, 9] [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+<p>原理： 创建了父类A，然后B子类继承父类，两个类中都有一个<code>constructor</code>构造方法，实质就是构造函数 <code>A</code> 和 <code>B</code>。<br>
+在子类的构造方法中调用了 <code>super</code> 方法，它表示父类的构造函数，用来新建父类的<code>this</code>对象。<br>
+注意：子类必须 <code>constructor</code> 方法中调用 <code>super</code> 方法，否则新建实例时会报错。<br>
+这是因为子类没有自己的 <code>this</code> 对象，而是继承父类的 <code>this</code> 对象，然后对其进行加工。<br>
+如果不调用 <code>super</code> 方法，子类就得不到 <code>this</code> 对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf = <span class="function"><span class="keyword">function</span> (<span class="params">obj, proto</span>) </span>&#123;</span><br><span class="line">  obj.__proto__ = proto;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// B 的实例继承 A 的实例</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(B.prototype, A.prototype);</span><br><span class="line"></span><br><span class="line"><span class="comment">// B 继承 A 的静态属性</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(B, A);</span><br><span class="line"></span><br><span class="line"><span class="comment">//</span></span><br></pre></td></tr></table></figure>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/js-prototype-chain/" data-toggle="tooltip" data-placement="top" title="【JavaScript】原型链">Previous Post &rarr;</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/article/essay-npm-version/" data-toggle="tooltip" data-placement="top" title="【随笔】查看npm包版本信息">&larr; Next Post</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                    <div class="reward">
+                        <div class="reward-button">赏 <span class="reward-code"> 
+                            <span class="alipay-code"> <img class="alipay-img" src="/img/pay/alipay_url.jpeg"><b>支付宝打赏</b></span> 
+                            <span class="wechat-code"> <img class="wechat-img" src="/img/pay/wechatpay_url.jpeg"><b>微信打赏</b> </span>
+                            </span></div>
+                        <p class="reward-notice">欣赏此文，打赏一下</p>
+                    </div>
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">面向过程、面向对象及面向对象编程</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">构造函数的属性</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">一、类与实例化</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">二、类与继承</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">2.1 借助构造函数实现继承(构造函数继承)</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">2.2 借助原型链实现继承</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">2.3 组合继承（构造函数+原型链）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.4.</span> <span class="toc-nav-text">2.4 组合继承优化1（构造函数+原型链）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.5.</span> <span class="toc-nav-text">2.5 组合继承优化2（寄生组合继承）</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.6.</span> <span class="toc-nav-text">2.6 ES6 Class extends</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <!-- FEATURED TAGS -->
+                    <h5><a href="/tags/">标签</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
+                        
+                          <a class="tag" href="/tags/#面试" title="面试">面试</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <!-- <h5>FRIENDS</h5> -->
+                <h5>参与社区</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://segmentfault.com/u/wanghaijuan" target="_blank">Segmentfault 王小匠</a></li>
+                    
+                        <li><a href="https://juejin.im/user/58eca126a0bb9f006a461f55" target="_blank">掘金 王小匠</a></li>
+                    
+                        <li><a href="https://blog.csdn.net/qq_33454758" target="_blank">CSDN Blog 王小匠</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<script>
+//  点击查看图片 
+function createImgEventFullScreen() {
+  var imgs = $(".container").find("img");
+  for(var i = 0;i < imgs.length;i++) {
+    imgs[i].onclick= function(e) {
+      createCover(e.srcElement.currentSrc)
+    }
+  }
+  function createCover (src) {
+    var cover = $("<div id='full-screen-cover' class='full-cover-img'><img class='cover-img' src='" + src + "'/></div>");
+    $("#full-screen-cover").remove();
+    $("body").append(cover);
+    $("body").addClass("body-scroll");
+    $("#full-screen-cover").click(function(){
+      $("#full-screen-cover").remove();
+      $("body").removeClass("body-scroll");
+    })
+  }
+}
+setTimeout(function(){
+  createImgEventFullScreen();
+},1000)
+</script>
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/wang_haijuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com//u/5604158760">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wanghaijuan">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                <!-- 
+                  <li>
+                      <a target="_blank" href="https://segmentfault.com/u/wanghaijuan">
+                          <span class="fa-stack fa-lg">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                          </span>
+                      </a>
+                  </li>
+                
+                 -->
+                </ul>
+
+                <p class="copyright text-muted">
+                    Copyright &copy; ARTROY 2020 
+                    <br>
+                    Theme by <a href="https://wanghaijuan.github.io/">Artroy</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://wanghaijuan.github.io/">王小匠</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=wanghaijuan&repo=wanghaijuan.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+<!-- mermaid -->
+
+    <script src='https://cdn.bootcss.com/mermaid/7.1.2/mermaid.min.js'></script>
+    <script>
+      if (window.mermaid) {
+        mermaid.initialize({theme: 'forest'});
+      }
+    </script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://wanghaijuan.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+<!-- 
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-148140427-1';
+    var _gaDomain = 'Artroy';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+ -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script>
+  // dynamic User by Hux
+  var _baId = 'UA-148140427-1';
+  // Originial
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://www.googletagmanager.com/gtag/js?id=" + _baId;
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', _baId);
+  })();
+</script>
+ -->
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '597740317a777ac92e58b0621510aa97';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+     <!-- 客服 -->
+    <script src="//code.tidio.co/rsrokwlqqcx6zz4uyzd6tel6lxu3pok0.js"></script>
+    <!-- Image to hack wechat -->
+    <img src="https://wanghaijuan.github.io/img/icon_wechat.png" width="0" height="0" />
+    <!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
